@@ -20,6 +20,9 @@ using namespace graphics;
 
 UIManager* UIManager::P_SHARED_INSTANCE = NULL;
 
+int UIManager::RESIZE_WIDTH = 0;
+int UIManager::RESIZE_HEIGHT = 0;
+
 void UIManager::draw()
 {
 	ImGui_ImplDX11_NewFrame();

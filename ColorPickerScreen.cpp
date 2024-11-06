@@ -4,6 +4,7 @@
 
 ColorPickerScreen::ColorPickerScreen() : UIScreen("ColorPickerScreen")
 {
+    isActive = false;
 }
 
 ColorPickerScreen::~ColorPickerScreen()

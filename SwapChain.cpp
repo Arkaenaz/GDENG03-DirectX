@@ -76,6 +76,35 @@ SwapChain::~SwapChain()
 	m_swap_chain->Release();
 }
 
+void SwapChain::cleanRenderTarget()
+{
+	if (m_rtv)
+	{
+		m_rtv->Release();
+		m_rtv = nullptr;
+	}
+}
+
+void SwapChain::resizeBuffers(UINT bufferCount, UINT width, UINT height)
+{
+	m_swap_chain->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, 0);
+}
+
+void SwapChain::createRenderTarget()
+{
+	ID3D11Texture2D* buffer = NULL;
+	HRESULT result = m_swap_chain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&buffer);
+
+	if (!debug::Logger::log(this, result))
+		throw std::exception("Swap Chain Fail");
+
+	result = this->system->m_d3d_device->CreateRenderTargetView(buffer, NULL, &m_rtv);
+	if (!debug::Logger::log(this, result))
+		throw std::exception("Render Target View not created successfully.");
+
+	buffer->Release();
+}
+
 bool SwapChain::present(bool vsync)
 {
 	m_swap_chain->Present(vsync, NULL);

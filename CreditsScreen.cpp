@@ -11,6 +11,7 @@ using namespace math;
 
 CreditsScreen::CreditsScreen() : UIScreen("CreditsScreen")
 {
+	isActive = false;
 }
 
 CreditsScreen::~CreditsScreen()
@@ -41,7 +42,7 @@ void CreditsScreen::draw()
 
 	ImGui::Begin("Credits", &isActive, ImGuiWindowFlags_NoDocking);
 
-	Texture* dlsuTexture = graphics::GraphicsEngine::getInstance()->getTextureManager()->createTextureFromFile(L"assets/textures/dlsu.png");
+	Texture* dlsuTexture = graphics::GraphicsEngine::getInstance()->getTextureManager()->createTextureFromFile(L"assets/textures/cute.png");
 
 	ImGui::Image((ImTextureID)dlsuTexture->shaderResourceView, ImVec2(256, 256));
 

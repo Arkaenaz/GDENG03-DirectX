@@ -28,6 +28,8 @@ public:
 	static const int WINDOW_WIDTH = 1440;
 	static const int WINDOW_HEIGHT = 900;
 
+	static int RESIZE_WIDTH;
+	static int RESIZE_HEIGHT;
 private:
 	static UIManager* P_SHARED_INSTANCE;
 

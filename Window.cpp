@@ -17,6 +17,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 	switch (msg)
 	{
+	case WM_SIZE:
+		if (wparam == SIZE_MINIMIZED)
+			return 0;
+		UIManager::RESIZE_WIDTH = (UINT)LOWORD(lparam); // Queue resize
+		UIManager::RESIZE_HEIGHT = (UINT)HIWORD(lparam);
 	case WM_CREATE:
 	{
 		// Event fired when the window is created
@@ -45,6 +50,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 		Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 		window->onDestroy();
 		::PostQuitMessage(0);
+		break;
+	}
+	case WM_DPICHANGED:
+	{
+		if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_DpiEnableScaleViewports)
+		{
+			const RECT* suggestedRect = (RECT*)lparam;
+			::SetWindowPos(hwnd, nullptr, suggestedRect->left, suggestedRect->top, suggestedRect->right - suggestedRect->left, suggestedRect->bottom - suggestedRect->top, SWP_NOZORDER | SWP_NOACTIVATE);
+		}
 		break;
 	}
 

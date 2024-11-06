@@ -22,6 +22,9 @@ namespace graphics
 		~SwapChain();
 
 	public:
+		void cleanRenderTarget();
+		void resizeBuffers(UINT bufferCount, UINT width, UINT height);
+		void createRenderTarget();
 		bool present(bool vsync);
 	};
 }

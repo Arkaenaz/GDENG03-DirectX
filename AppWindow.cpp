@@ -60,6 +60,15 @@ void AppWindow::onUpdate()
 	CameraManager::getInstance()->updateSceneCamera(deltaTime);
 
 	UIManager::getInstance()->draw();
+
+	if (UIManager::RESIZE_WIDTH != 0 && UIManager::RESIZE_HEIGHT != 0)
+	{
+		swapChain->cleanRenderTarget();
+		swapChain->resizeBuffers(0, UIManager::RESIZE_WIDTH, UIManager::RESIZE_HEIGHT);
+		UIManager::RESIZE_WIDTH = UIManager::RESIZE_HEIGHT = 0;
+		swapChain->createRenderTarget();
+	}
+
 	swapChain->present(false);
 }
 
